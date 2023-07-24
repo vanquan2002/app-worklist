@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../reducers/workSlice';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 import Header from './Header';
-import Completed from './Compleled';
+import Completed from './Completed';
 import NotCompleted from './NotCompleted';
 
 function App() {
