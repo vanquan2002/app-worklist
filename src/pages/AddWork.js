@@ -1,12 +1,15 @@
 import { db } from "../firebase";
 import { collection, addDoc, Timestamp } from 'firebase/firestore'
 import { useState } from "react";
+import { useSelector } from 'react-redux';
 import Modal from "./Modal";
 import '../styles/AddWork.css'
 
 function AddWork({onClose, open}) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+
+    const user = useSelector(state => state.works.userData);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -16,7 +19,8 @@ function AddWork({onClose, open}) {
                 title: title,
                 description: description,
                 completed: false,
-                created: Timestamp.now()
+                created: Timestamp.now(),
+                userId: user.userId
             })
             onClose()
         } catch (err) {

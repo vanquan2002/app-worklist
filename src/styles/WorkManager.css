@@ -1,40 +1,4 @@
-.workManager>header {
-    padding: 25px 20px;
-    background-color: hsl(210, 12%, 15%);
-    color: white;
-    font-size: 28px;
-    font-family: cursive;
-}
 
-.workManager__user {
-    position: absolute;
-    top: 2.5%;
-    right: 20px;
-}
-
-.workManager__user img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-}
-
-.workManager__user h1 {
-    font-size: 16px;
-    display: inline;
-}
-
-.workManager__user button {
-    border-radius: 5px;
-    border: none;
-    color: white;
-    font-size: 18px;
-    padding: 10px 15px;
-    margin: 0 auto;
-    background-color: hsl(210, 12%, 15%);
-    cursor: pointer;
-
-}
 
 .workManager__container {
     width: 95%;
@@ -68,42 +32,4 @@
     flex-direction: column;
     gap: 20px;
     margin-top: 20px;
-}
-
-/* CSS Dropdown */
-.workManager__user .dropdown {
-    position: fixed;
-    right: 10px;
-    top: 80px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    display: none;
-}
-
-.workManager__user:hover .dropdown {
-    display: block;
-}
-
-.workManager__user .dropdown h1 {
-    font-size: 16px;
-    margin-bottom: 10px;
-    padding-right: 10px;
-}
-
-.workManager__user .dropdown button {
-    background-color: hsl(210, 12%, 15%);
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.workManager__user .dropdown button:hover {
-    background-color: hsl(210, 12%, 25%);
 }

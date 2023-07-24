@@ -1,35 +1,63 @@
 import { useEffect, useState } from 'react'
 import Work from './Work'
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import { auth, db } from '../firebase'
+import { db } from '../firebase'
 import AddWork from "./AddWork";
 import '../styles/WorkManager.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { setCompleted, setNotCompleted } from '../reducers/workSlice';
 
-function WorkManager({user}) {
+function WorkManager() {
     const [openAddModal, setOpenAddModal] = useState({ addModal: false })
-    const [works, setWork] = useState([])
+    const [userWorks, setUserWork] = useState([])
+
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.works.userData);
+    // const workCompleted = useSelector(state => state.works.workCompleted)
+
 
     useEffect(() => {
         const taskColRef = query(collection(db, 'works'), orderBy('created', 'desc'))
         onSnapshot(taskColRef, (snapshot) => {
-            setWork(snapshot.docs.map(doc => ({
+            const workData = snapshot.docs.map(doc => ({
                 id: doc.id,
                 data: doc.data()
-            })))
+            }))
+
+            const userWorkData = workData.filter(work => work.data.userId === user?.userId);
+            setUserWork(userWorkData);
+
+            const checkCompleted = userWorkData.filter(work => work.data.completed === true);
+            const checkNotCompleted = userWorkData.filter(work => work.data.completed === false);
+
+            const completed = checkCompleted.map(item => ({
+                id: item.id,
+                data: {
+                    completed: item.data.completed,
+                    title: item.data.title,
+                    description: item.data.description,
+                    userId: item.data.userId
+                }
+            }))
+
+            const notCompleted = checkNotCompleted.map(item => ({
+                id: item.id,
+                data: {
+                    completed: item.data.completed,
+                    title: item.data.title,
+                    description: item.data.description,
+                    userId: item.data.userId
+                }
+            }))
+
+            dispatch(setCompleted(completed));
+            dispatch(setNotCompleted(notCompleted));
         })
     }, [])
-    console.log(works);
+
 
     return (
         <div className='workManager'>
-            <header>Work Manager</header>
-            <div className='workManager__user'>
-                <img src={user.photoURL} onClick={() => setOpenAddModal({ ...openAddModal, userModal: true })} alt="" />
-                <div className='dropdown'>
-                    <h1>{user.displayName}</h1>
-                    <button className="button signout" onClick={() => auth.signOut()}>Sign out</button>
-                </div> 
-            </div>
             <div className='workManager__container'>
                 <button
                     onClick={() => setOpenAddModal({ ...openAddModal, addModal: true })}>
@@ -37,7 +65,7 @@ function WorkManager({user}) {
                 </button>
                 <div className='workManager__tasks'>
 
-                    {works.map((task) => (
+                    {userWorks.map((task) => (
                         <Work
                             id={task.id}
                             key={task.id}
@@ -46,7 +74,7 @@ function WorkManager({user}) {
                             description={task.data.description}
                         />
                     ))}
-                    
+
                 </div>
             </div>
 
