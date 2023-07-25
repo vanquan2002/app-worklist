@@ -13,8 +13,6 @@ function WorkManager() {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.works.userData);
-    // const workCompleted = useSelector(state => state.works.workCompleted)
-
 
     useEffect(() => {
         const taskColRef = query(collection(db, 'works'), orderBy('created', 'desc'))
