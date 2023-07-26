@@ -118,8 +118,7 @@ function WorkManager() {
                     onClick={() => setOpenAddModal({ ...openAddModal, addModal: true })}>
                     Add work +
                 </button>
-                <div className='workManager__tasks'>
-
+                <div className='workManager__works'>
                     {work.map((work) => (
                         <Work
                             id={work.id}
@@ -129,7 +128,6 @@ function WorkManager() {
                             description={work.data.description}
                         />
                     ))}
-
                 </div>
             </div>
 

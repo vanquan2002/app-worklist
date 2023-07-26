@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux"
 import Work from "./Work"
-
+import '../styles/NotCompleted.css'
 
 function NotCompleted() {
     const workNotCompleted = useSelector(state => state.works.workNotCompleted)
 
     return(
-        <>
+        <div className="box-notCompleted">
             {workNotCompleted.map((task) => (
                 <Work
                     id={task.id}
@@ -16,7 +16,7 @@ function NotCompleted() {
                     description={task.data.description}
                 />
             ))}
-        </>
+        </div>
     )
 }
 

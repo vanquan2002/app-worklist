@@ -16,8 +16,8 @@ function Header() {
     return (
         <>
             <nav>
-                <Link to='/'>Home</Link>
-                <Link to='/completed'>Completed</Link>
+                <Link to='/'>Home</Link> |
+                <Link to='/completed'>Completed</Link> |
                 <Link to='/notcompleted'>Not Completed</Link>
             </nav>          
             <div className='header__user'>

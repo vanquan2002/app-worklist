@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux"
 import Work from "./Work"
-
+import '../styles/Completed.css'
 
 function Completed() {
     const workCompleted = useSelector(state => state.works.workCompleted)
 
     return(
-        <>
+        <div className="box-completed">
             {workCompleted.map((task) => (
                 <Work
                     id={task.id}
@@ -16,7 +16,7 @@ function Completed() {
                     description={task.data.description}
                 />
             ))}
-        </>
+        </div>
     )
 }
 

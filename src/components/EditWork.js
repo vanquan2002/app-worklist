@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 
 function EditWork({ open, onClose, toEditTitle, toEditDescription, id }) {
     const [title, setTitle] = useState(toEditTitle)
-    const [description, setDescription] = useState(toEditDescription)
+    const [description, setDescription] = useState(toEditDescription)  
 
     const navigate = useNavigate();
     const handleUpdate = async (e) => {
