@@ -4,11 +4,18 @@ import { db } from "../firebase"
 import WorkItem from './WorkItem'
 import EditWork from './EditWork'
 import '../styles/Work.css'
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
-function Work({ id, completed, title, description }) {
+function Search() {
+    const workSearch = useSelector(state => state.works.searchData); 
+
+    const {id, data } = workSearch
+    const {completed, title, description} = data
+    
     const [checked, setChecked] = useState(completed)
     const [open, setOpen] = useState({ edit: false, view: false })
-    
+
     const handleClose = () => {
         setOpen({ edit: false, view: false })
     }
@@ -24,10 +31,12 @@ function Work({ id, completed, title, description }) {
         }
     }
 
+    const navigate = useNavigate();
     const handleDelete = async () => {
         const workDocRef = doc(db, 'works', id)
         try {
             await deleteDoc(workDocRef)
+            navigate('/')
         } catch (err) {
             alert(err)
         }
@@ -85,7 +94,7 @@ function Work({ id, completed, title, description }) {
                     onClose={handleClose}
                     toEditTitle={title}
                     toEditDescription={description}
-                    open={open.edit}
+                    open={open.edit} 
                     id={id} 
                 />
             }
@@ -93,4 +102,4 @@ function Work({ id, completed, title, description }) {
     )
 }
 
-export default Work
+export default Search

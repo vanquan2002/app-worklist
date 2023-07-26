@@ -3,11 +3,13 @@ import { useState } from "react"
 import { db } from "../firebase"
 import Modal from "./Modal"
 import '../styles/EditWork.css'
-function EditWork({ open, onClose, toEditTitle, toEditDescription, id }) {
+import { useNavigate } from "react-router-dom"
 
+function EditWork({ open, onClose, toEditTitle, toEditDescription, id }) {
     const [title, setTitle] = useState(toEditTitle)
     const [description, setDescription] = useState(toEditDescription)
 
+    const navigate = useNavigate();
     const handleUpdate = async (e) => {
         e.preventDefault()
         const taskDocRef = doc(db, 'works', id)
@@ -16,6 +18,7 @@ function EditWork({ open, onClose, toEditTitle, toEditDescription, id }) {
                 title: title,
                 description: description
             })
+            navigate('/')
             onClose()
         } catch (err) {
             alert(err)

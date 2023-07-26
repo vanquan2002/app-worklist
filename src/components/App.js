@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 import Header from './Header';
 import Completed from './Completed';
 import NotCompleted from './NotCompleted';
+import Search from './Search';
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function App() {
         <Route path='/' element={user ? <WorkManager /> : <LogIn />}/>
         <Route path='/completed' element={<Completed />}/>
         <Route path='/notcompleted' element={<NotCompleted />}/>
+        <Route path='/search' element={<Search />}/>
       </Routes>
     </Router>
   );
