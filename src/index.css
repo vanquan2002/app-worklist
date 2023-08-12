@@ -1,13 +1,15 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400;500&family=Roboto:wght@500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.vq-top-menu-item{
+    @apply cursor-pointer py-1 hover:text-gray-800 relative after:absolute 
+        after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full 
+        after:bg-purpleee after:transition-all after:ease-in-out after:duration-300
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.vq-icon{
+    @apply w-5 h-5 inline-block opacity-70 hover:opacity-100 hover:text-purpleee duration-500
 }

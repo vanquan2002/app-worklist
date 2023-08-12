@@ -4,7 +4,6 @@ import '../styles/NotCompleted.css'
 
 function NotCompleted() {
     const workNotCompleted = useSelector(state => state.works.workNotCompleted)
-
     return(
         <div className="box-notCompleted">
             {workNotCompleted.map((task) => (

@@ -1,29 +1,29 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import Work from './Work'
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { db } from '../firebase'
 import AddWork from "./AddWork";
-import '../styles/WorkManager.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearch, setCompleted, setNotCompleted, setWork } from '../reducers/workSlice';
-import { useNavigate } from 'react-router-dom';
+import { setWork } from '../reducers/workSlice';
+import Footer from './Footer';
 
 function WorkManager() {
-    const [openAddModal, setOpenAddModal] = useState({ addModal: false })
+    const [openAddModal, setOpenAddModal] = useState(false)
 
     const dispatch = useDispatch()
+
     const work = useSelector(state => state.works.workData);
     const user = useSelector(state => state.works.userData);
 
     useEffect(() => {
         const taskColRef = query(collection(db, 'works'), orderBy('created', 'desc'))
-        onSnapshot(taskColRef, (snapshot) => {
-            const workData = snapshot.docs.map(doc => ({
-                id: doc.id,
-                data: doc.data()
-            }))
+            onSnapshot(taskColRef, (snapshot) => {
+                const workData = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    data: doc.data()
+                }))
 
-            const userWorkData = workData.filter(work => work.data.userId === user?.userId);
+            const userWorkData = workData.filter(work => work.data.userId === user.userId);
             if (userWorkData) {
                 const datas = userWorkData.map(item => ({
                     id: item.id,
@@ -38,89 +38,23 @@ function WorkManager() {
             } else {
                 dispatch(setWork([]));
             }
-
-            const checkCompleted = userWorkData.filter(work => work.data.completed === true);
-            const checkNotCompleted = userWorkData.filter(work => work.data.completed === false);
-
-            const completed = checkCompleted.map(item => ({
-                id: item.id,
-                data: {
-                    completed: item.data.completed,
-                    title: item.data.title,
-                    description: item.data.description,
-                    userId: item.data.userId
-                }
-            }))
-
-            const notCompleted = checkNotCompleted.map(item => ({
-                id: item.id,
-                data: {
-                    completed: item.data.completed,
-                    title: item.data.title,
-                    description: item.data.description,
-                    userId: item.data.userId
-                }
-            }))
-            dispatch(setCompleted(completed));
-            dispatch(setNotCompleted(notCompleted));
         })
     }, [])
 
-    const inputRef = useRef()
-    const [searchItem, setSearchItem] = useState('');
-    const [foundWork, setFoundWork] = useState([]);
-
-    const filter = (e) => {
-        const keyword = e.target.value;
-        if (keyword !== '') {
-            const results = work.filter((item) => {
-                return item.data.title.toLowerCase().startsWith(keyword.toLowerCase());
-            });
-            setFoundWork(results);
-        } else {
-            setFoundWork([]);
-        }
-        setSearchItem(keyword);
-    };
-
-    const navigate = useNavigate();
-    const handleSearch = (workItem)=>{
-        dispatch(setSearch(workItem))
-        inputRef.current.focus()
-        setSearchItem('')
-        setFoundWork([])
-        navigate('/search')
-    }
-
     return (
-        <div className='workManager'>
-            <input
-                ref={inputRef}
-                type="search"
-                value={searchItem}
-                onChange={filter}
-                className="input-search"
-                placeholder="Search..."
-            /> 
-            <ul className="work-list">
-                {foundWork && foundWork.length > 0 && (
-                    foundWork.map((work) => (
-                        <li key={work.id} className="work-item">
-                            <span onClick={()=> handleSearch(work)} className="user-id">{work.data.title}</span>
-                        </li>
-                    ))
-                )}
-            </ul>
-
-
-            <div className='workManager__container'>
+        <div className='mb-8'>
+            <div className='flex flex-col justify-between items-center mx-8 rounded-xl 
+                            bg-gradient-to-r from-purple-500 to-pink-500 pb-6'>
                 <button
-                    onClick={() => setOpenAddModal({ ...openAddModal, addModal: true })}>
+                    className='mt-8 mb-3 px-5 py-1 font-medium text-gray-500 hover:text-gray-900 duration-300 
+                            drop-shadow-2xl rounded-2xl hover:rounded-lg bg-white'
+                    onClick={() => setOpenAddModal(true)}>
                     Add work +
                 </button>
-                <div className='workManager__works'>
-                    {work.map((work) => (
+                <div className='w-full px-10 lg:px-28'>
+                    {work.map((work, index) => (
                         <Work
+                            index={index}
                             id={work.id}
                             key={work.id}
                             completed={work.data.completed}
@@ -131,10 +65,11 @@ function WorkManager() {
                 </div>
             </div>
 
-            {openAddModal.addModal &&
-                <AddWork onClose={() => setOpenAddModal(false)} open={openAddModal.addModal} />
+            {openAddModal &&
+                <AddWork onClose={() => setOpenAddModal(false)} open={openAddModal} />
             }
 
+            <Footer />
         </div>
     )
 }

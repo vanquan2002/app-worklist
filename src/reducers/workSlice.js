@@ -13,6 +13,10 @@ const todoSlice = createSlice({
     initialState: initialState,
     reducers: {
         setWork(state, action) {
+            const checkCompleted = action.payload.filter(work => work.data.completed === true);
+            const checkNotCompleted = action.payload.filter(work => work.data.completed === false);
+            state.workCompleted = checkCompleted
+            state.workNotCompleted = checkNotCompleted
             state.workData = action.payload;
         },
         setSearch(state, action) {
@@ -21,15 +25,9 @@ const todoSlice = createSlice({
         setUser(state, action) {
             state.userData = action.payload;
         },
-        setCompleted(state, action) {
-            state.workCompleted = action.payload;
-        },
-        setNotCompleted(state, action) {
-            state.workNotCompleted = action.payload;
-        },
     }
 });
 
 const { actions, reducer } = todoSlice;
-export const { setWork, setSearch, setUser, setCompleted, setNotCompleted } = actions;
+export const { setWork, setSearch, setUser} = actions;
 export default reducer;
