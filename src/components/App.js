@@ -1,8 +1,8 @@
 import { useEffect} from 'react';
-import { auth } from '../firebase'; // Import auth từ file firebase.js
+import { auth } from '../firebase'; 
 import LogIn from './LogIn';
 import WorkManager from './WorkManager';
-import '../styles/App.css';
+import '../App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../reducers/workSlice';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
@@ -10,6 +10,7 @@ import Header from './Header';
 import Completed from './Completed';
 import NotCompleted from './NotCompleted';
 import Search from './Search';
+import User from './User';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +22,8 @@ function App() {
         const userData = {
           userId: user.uid,
           displayName: user.displayName,
-          photoURL: user.photoURL
+          photoURL: user.photoURL,
+          email: user.email
         };
         dispatch(setUser(userData));
       }else{
@@ -38,6 +40,7 @@ function App() {
         <Route path='/' element={user ? <WorkManager /> : <LogIn />}/>
         <Route path='/completed' element={<Completed />}/>
         <Route path='/notcompleted' element={<NotCompleted />}/>
+        <Route path='/user' element={<User />}/>
         <Route path='/search' element={<Search />}/>
       </Routes>
     </Router>

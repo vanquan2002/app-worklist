@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
-import { useRef, useState, useEffect} from 'react';
+import { useRef, useState } from 'react';
 import { setSearch } from '../reducers/workSlice';
 
 function Header() {
@@ -58,6 +58,7 @@ function Header() {
                     <Link className='vq-top-menu-item' to='/'>Home</Link> 
                     <Link className='vq-top-menu-item' to='/completed'>Completed</Link>
                     <Link className='vq-top-menu-item' to='/notcompleted'>Not Completed</Link>
+                    <Link className='vq-top-menu-item' to='/user'>User information</Link>
                 </div>
 
                 <div className='mr-6 flex justify-between items-center'>
@@ -67,7 +68,7 @@ function Header() {
                         value={searchItem}
                         onChange={filter}
                         placeholder="Search..."
-                        className='bg-white relative border inline-block border-slate-300 focus:outline-none focus:border-purpleee px-3 py-2 rounded-md drop-shadow-md'
+                        className='bg-white relative border inline-block border-slate-300 focus:outline-none focus:ring-1 focus:ring-purpleee px-3 py-2 rounded-md drop-shadow-md'
                     /> }
                     {showSearch && <ul className="absolute top-16">
                         {foundWork && foundWork.length > 0 && (

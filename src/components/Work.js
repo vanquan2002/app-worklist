@@ -32,7 +32,7 @@ function Work({ id, completed, title, description, index }) {
     }
     
     return (
-        <div className={`flex flex-row items-center my-5 py-4 bg-white rounded-md ${completed && 'bg-green-100'}`}>
+        <div className={`flex flex-row items-center my-5 py-4 bg-white rounded-md ${completed && 'bg-green-200'}`}>
             <h1 className="basis-1/6 flex justify-center">{index + 1} .</h1>
             <div className="basis-1/6 flex justify-center">
                 <input
@@ -45,7 +45,7 @@ function Work({ id, completed, title, description, index }) {
                     type="checkbox" 
                 />
             </div>
-            <div className="basis-2/6 flex justify-center">
+            <div className="basis-2/6 flex justify-center uppercase">
                 <h2>{title}</h2>
             </div>
             

@@ -3,10 +3,8 @@ import { useState } from "react"
 import { db } from "../firebase"
 import WorkItem from './WorkItem'
 import EditWork from './EditWork'
-import '../styles/Work.css'
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import '../styles/Search.css'
 
 function Search() {
     const workSearch = useSelector(state => state.works.searchData);

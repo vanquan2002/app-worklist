@@ -43,8 +43,8 @@ function WorkManager() {
 
     return (
         <div className='mb-8'>
-            <div className='flex flex-col justify-between items-center mx-8 rounded-xl 
-                            bg-gradient-to-r from-purple-500 to-pink-500 pb-6'>
+            <div className='flex flex-col justify-start items-center mx-8 rounded-xl 
+                            bg-gradient-to-r from-purple-500 to-pink-500 pb-6 min-h-[500px]'>
                 <button
                     className='mt-8 mb-3 px-5 py-1 font-medium text-gray-500 hover:text-gray-900 duration-300 
                             drop-shadow-2xl rounded-2xl hover:rounded-lg bg-white'

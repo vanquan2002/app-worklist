@@ -1,5 +1,3 @@
-// import '../styles/Modal.css'
-
 function Modal({ open, modalLable, children, onClose }) {
 
     const handleClose = (e) => {
