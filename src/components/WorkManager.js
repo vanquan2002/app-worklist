@@ -6,6 +6,7 @@ import AddWork from "./AddWork";
 import { useDispatch, useSelector } from 'react-redux';
 import { setWork } from '../reducers/workSlice';
 import Footer from './Footer';
+import NotData from './NotData';
 
 function WorkManager() {
     const [openAddModal, setOpenAddModal] = useState(false)
@@ -43,7 +44,7 @@ function WorkManager() {
     }, [])
 
     return (
-        <div className='mb-8'>
+        <div className='mb-8 mt-24'>
             <div className='flex flex-col justify-start items-center mx-8 rounded-xl 
                             bg-gradient-to-r from-purple-500 to-pink-500 pb-6 min-h-[500px]'>
                 <button
@@ -53,16 +54,20 @@ function WorkManager() {
                     Add work +
                 </button>
                 <div className='w-full px-10 lg:px-28'>
-                    {work.map((work, index) => (
-                        <Work
-                            index={index}
-                            id={work.id}
-                            key={work.id}
-                            completed={work.data.completed}
-                            title={work.data.title}
-                            description={work.data.description}
-                        />
-                    ))}
+                    {work.length > 0 ? (
+                        work.map((work, index) => (
+                            <Work
+                                index={index}
+                                id={work.id}
+                                key={work.id}
+                                completed={work.data.completed}
+                                title={work.data.title}
+                                description={work.data.description}
+                            />
+                        ))
+                    ) : (
+                        <NotData icon='enter' text="Enter your work..."/>
+                    )}
                 </div>
             </div>
 

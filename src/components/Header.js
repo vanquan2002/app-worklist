@@ -64,7 +64,7 @@ function Header() {
 
     return (
         <>
-            <nav className='max-w-screen-2x h-20 mb-10 flex flex-grow justify-between items-center'>
+            <nav className='max-w-screen-2x h-20 mb-10 flex flex-grow justify-between items-center fixed top-0 left-0 right-0 bottom-6 bg-white z-10'>
                 <div className='text-2xl text-gray-500 flex justify-start items-center gap-6 uppercase  pl-10'>
                     <Link className='vq-top-menu-item' to='/'>Home</Link> 
                     <Link className='vq-top-menu-item' to='/completed'>Completed</Link>
@@ -78,14 +78,18 @@ function Header() {
                         value={searchItem}
                         onChange={filter}
                         placeholder="Search..."
-                        className='bg-white relative border inline-block border-slate-300 focus:outline-none focus:ring-1 focus:ring-purpleee px-3 py-2 rounded-md drop-shadow-md'
+                        className='bg-white w-[200px] relative border inline-block border-slate-300 focus:outline-none focus:ring-1 focus:ring-purpleee px-3 py-2 rounded-md drop-shadow-md'
                     /> }
-                    {showSearch && <ul className="absolute top-16">
+                    {showSearch && <ul className="absolute top-[70px] pb-3 bg-white rounded-md">
                         {foundWork && foundWork.length > 0 && (
                             foundWork.map((work) => (
-                                <li key={work.id} className="cursor-pointer">
+                                <li key={work.id} 
+                                    className="cursor-pointer flex flex-row items-center pl-4 pb-1 w-[200px] text-gray-600"
+                                    onClick={() => {
+                                        handleChange(work);
+                                    }}>
                                     <input
-                                        className='appearance-none bg-gray-200 checked:bg-green-500 cursor-pointer w-6 h-6' 
+                                        className='appearance-none bg-gray-200 checked:bg-green-500 cursor-pointer w-5 h-5 mr-1' 
                                         name="checkbox"
                                         checked={work.data.completed}
                                         onChange={() => {
@@ -105,12 +109,11 @@ function Header() {
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="vq-icon">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                         </svg>
-                        
                     </button>
                     
-
                     <img src={user.photoURL} className='cursor-pointer rounded-full w-12 h-12 mt-1 mr-2' alt="" 
                                 onClick={()=>{setHover(!hover)}}
+                                onBlur={()=>setShowSearch(false)}
                     />
                     { hover && 
                         <div className='absolute top-20 right-10 p-5 flex flex-col justify-end items-start rounded-xl bg-white drop-shadow-2xl'>

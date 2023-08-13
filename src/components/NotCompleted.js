@@ -7,10 +7,11 @@ function NotCompleted() {
     const workNotCompleted = useSelector(state => state.works.workNotCompleted)
 
     return(
-        <div className="mb-8">
+        <div className="mb-8 mt-24">
             <div className="flex flex-col justify-start items-center mx-8 rounded-xl 
                     bg-gradient-to-r from-purple-500 to-pink-500 pb-6 min-h-[500px]">
-                <div className="w-full px-10 lg:px-28 pt-8">
+                <p className="pt-8 text-white text-xl uppercase font-mono">Not completed work list</p>    
+                <div className="w-full px-10 lg:px-28">
                     {workNotCompleted.length > 0 ? (
                         workNotCompleted.map((task, index) => (
                             <Work
@@ -23,7 +24,7 @@ function NotCompleted() {
                             />
                         ))
                     ) : (
-                        <NotData icon='yes' text='you have finished all the work'/>
+                        <NotData icon='yes' text='You have finished all the work'/>
                     )}
                 </div>
             </div>   

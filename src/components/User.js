@@ -5,7 +5,7 @@ export default function User() {
   const user = useSelector(state => state.works.userData);
 
   return (
-    <div className='flex flex-col justify-center items-center mt-28'>
+    <div className='flex flex-col justify-center items-center mt-48'>
         <div className='flex flex-col justify-center items-center w-64 pt-16 pb-12 rounded-2xl border-2 border-purpleee drop-shadow-2xl'>
           <img src={user.photoURL} className='border-2 border-purpleee rounded-full duration-200 hover:ring-2 hover:ring-purpleee' alt="" />
           <p className='mt-5 text-gray-500 text-lg'>{user.displayName}</p>
