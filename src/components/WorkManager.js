@@ -14,7 +14,7 @@ function WorkManager() {
 
     const work = useSelector(state => state.works.workData);
     const user = useSelector(state => state.works.userData);
-
+    
     useEffect(() => {
         const taskColRef = query(collection(db, 'works'), orderBy('created', 'desc'))
             onSnapshot(taskColRef, (snapshot) => {
@@ -24,6 +24,7 @@ function WorkManager() {
                 }))
 
             const userWorkData = workData.filter(work => work.data.userId === user.userId);
+
             if (userWorkData) {
                 const datas = userWorkData.map(item => ({
                     id: item.id,

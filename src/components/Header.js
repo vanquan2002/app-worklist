@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
-import { useRef, useState } from 'react';
-import { setSearch } from '../reducers/workSlice';
+import { auth, db } from '../firebase';
+import { useState } from 'react';
+import { doc, updateDoc } from "firebase/firestore"
 
 function Header() {
     const user = useSelector(state => state.works.userData);
@@ -16,8 +16,6 @@ function Header() {
     const [hover, setHover] = useState(false);
 
     const work = useSelector(state => state.works.workData);
-    const dispatch = useDispatch()
-    const inputRef = useRef()
     const [searchItem, setSearchItem] = useState('');
     const [foundWork, setFoundWork] = useState([]);
     const filter = (e) => {
@@ -32,15 +30,14 @@ function Header() {
         }
         setSearchItem(keyword);
     };
-    const handleSearch = (workItem)=>{
-        dispatch(setSearch(workItem))
-        inputRef.current.focus()
-        setSearchItem('')
-        setFoundWork([])
-        navigate('/')
+
+    const handleUser = ()=>{
+        setHover(false)
+        navigate('/user')
     }
 
     const [showSearch, setShowSearch] = useState(false);
+    
     const btnSearch = ()=>{
         if (showSearch) {
             setFoundWork([])
@@ -48,6 +45,20 @@ function Header() {
             setShowSearch(false)
         }else{
             setShowSearch(true)
+        }
+    }
+
+    const handleChange = async (work) => {
+        const workDocRef = doc(db, 'works', work.id)
+        try {
+            setSearchItem('')
+            setFoundWork([])
+            setShowSearch(false)
+            await updateDoc(workDocRef, {
+                completed: !work.data.completed
+            })
+        } catch (err) {
+            alert(err)
         }
     }
 
@@ -63,7 +74,6 @@ function Header() {
 
                 <div className='mr-6 flex justify-between items-center'>
                     {showSearch && <input
-                        ref={inputRef}
                         type="search"
                         value={searchItem}
                         onChange={filter}
@@ -74,7 +84,16 @@ function Header() {
                         {foundWork && foundWork.length > 0 && (
                             foundWork.map((work) => (
                                 <li key={work.id} className="cursor-pointer">
-                                    <span onClick={()=> handleSearch(work)} className="user-id">{work.data.title}</span>
+                                    <input
+                                        className='appearance-none bg-gray-200 checked:bg-green-500 cursor-pointer w-6 h-6' 
+                                        name="checkbox"
+                                        checked={work.data.completed}
+                                        onChange={() => {
+                                            handleChange(work);
+                                        }}
+                                        type="checkbox" 
+                                    />
+                                    <span className="">{work.data.title}</span>
                                 </li>
                             ))
                         )}
@@ -96,7 +115,7 @@ function Header() {
                     { hover && 
                         <div className='absolute top-20 right-10 p-5 flex flex-col justify-end items-start rounded-xl bg-white drop-shadow-2xl'>
                             <h1 className='font-medium text-gray-600'>{user.displayName}</h1>
-                            <button onClick={() => navigate('/user')} className='py-1 flex items-center text-gray-600 hover:text-purpleee'>
+                            <button onClick={handleUser} className='py-1 flex items-center text-gray-600 hover:text-purpleee'>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="vq-icon mr-1">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
