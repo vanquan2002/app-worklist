@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
-import Work from "./Work"
-import NotData from './NotData'
-import Footer from './Footer'
+import Work from "../components/Work"
+import NotData from '../components/NotData'
+import Footer from '../components/Footer'
 
 function NotCompleted() {
     const workNotCompleted = useSelector(state => state.works.workNotCompleted)

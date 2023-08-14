@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import Work from './Work'
+import Work from '../components/Work'
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import { db } from '../firebase'
-import AddWork from "./AddWork";
+import { db } from '../utils/firebase'
+import AddWork from "../components/AddWork";
 import { useDispatch, useSelector } from 'react-redux';
 import { setWork } from '../reducers/workSlice';
-import Footer from './Footer';
-import NotData from './NotData';
+import Footer from '../components/Footer';
+import NotData from '../components/NotData';
 
 function WorkManager() {
     const [openAddModal, setOpenAddModal] = useState(false)

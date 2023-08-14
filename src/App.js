@@ -1,16 +1,16 @@
 import { useEffect} from 'react';
-import { auth } from '../firebase'; 
-import LogIn from './LogIn';
-import WorkManager from './WorkManager';
-import '../App.css';
+import { auth } from './utils/firebase'; 
+import LogIn from './pages/LogIn';
+import WorkManager from './pages/WorkManager';
+import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../reducers/workSlice';
+import { setUser } from './reducers/workSlice';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
-import Header from './Header';
-import Completed from './Completed';
-import NotCompleted from './NotCompleted';
-import Search from './Search';
-import User from './User';
+import Header from './components/Header';
+import Completed from './pages/Completed';
+import NotCompleted from './pages/NotCompleted';
+import User from './pages/User';
+import Error404 from './pages/Error404'
 
 function App() {
   const dispatch = useDispatch();
@@ -37,11 +37,11 @@ function App() {
       {user ? <Header /> : null}
 
       <Routes>
-        <Route path='/' element={user ? <WorkManager /> : <LogIn />}/>
         <Route path='/completed' element={<Completed />}/>
         <Route path='/notcompleted' element={<NotCompleted />}/>
         <Route path='/user' element={<User />}/>
-        <Route path='/search' element={<Search />}/>
+        <Route path='/*' element={<Error404 />}/>
+        <Route path='/' element={user ? <WorkManager /> : <LogIn />}/>
       </Routes>
     </Router>
   );

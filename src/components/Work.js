@@ -1,6 +1,6 @@
 import { deleteDoc, doc, updateDoc } from "firebase/firestore"
 import { useState } from "react"
-import { db } from "../firebase"
+import { db } from "../utils/firebase"
 import WorkItem from './WorkItem'
 import EditWork from './EditWork'
 

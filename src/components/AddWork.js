@@ -1,4 +1,4 @@
-import { db } from "../firebase";
+import { db } from "../utils/firebase";
 import { collection, addDoc, Timestamp } from 'firebase/firestore'
 import { useSelector } from 'react-redux';
 import Modal from "./Modal";

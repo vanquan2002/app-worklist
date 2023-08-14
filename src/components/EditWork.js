@@ -1,5 +1,5 @@
 import { doc, updateDoc } from "firebase/firestore"
-import { db } from "../firebase"
+import { db } from "../utils/firebase"
 import Modal from "./Modal"
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
