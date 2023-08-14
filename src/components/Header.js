@@ -84,7 +84,7 @@ function Header() {
                         {foundWork && foundWork.length > 0 && (
                             foundWork.map((work) => (
                                 <li key={work.id} 
-                                    className="cursor-pointer flex flex-row items-center pl-4 pb-1 w-[200px] text-gray-600"
+                                    className="cursor-pointer flex flex-row items-center pl-4 pb-1 w-[200px] text-gray-600 hover:bg-slate-100 duration-300"
                                     onClick={() => {
                                         handleChange(work);
                                     }}>

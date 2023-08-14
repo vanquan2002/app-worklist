@@ -32,7 +32,7 @@ function Work({ id, completed, title, description, index }) {
     }
     
     return (
-        <div className={`flex flex-row items-center my-5 py-4 bg-white rounded-md ${completed && 'bg-green-200'}`}>
+        <div className={`flex flex-row items-center my-5 py-4 bg-white rounded-md ${completed && 'bg-green-100'}`}>
             <h1 className="basis-1/6 flex justify-center">{index + 1} .</h1>
             <div className="basis-1/6 flex justify-center">
                 <input
